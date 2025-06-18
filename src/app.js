@@ -1,10 +1,26 @@
 const express = require("express");
+const connectDB = require('./config/database');
+const cookieParser = require("cookie-parser");
 const app = express();
 
-app.use((req, res) => {
-    res.send("Hello from the server");
-})
+app.use(express.json());
+app.use(cookieParser());
 
-app.listen(3000, () => {
-    console.log('Listening on port 3000')
+const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
+const requestRouter = require('./routes/request');
+const userRouter = require('./routes/user');
+
+app.use('/', authRouter);
+app.use('/', profileRouter);
+app.use('/', requestRouter);
+app.use('/', userRouter);
+
+connectDB().then(() => {
+    console.log('connected to db');
+    app.listen(3000, () => {
+        console.log('Listening on port 3000')
+    });
+}).catch((err) => {
+    console.error('error connecting to db')
 });
