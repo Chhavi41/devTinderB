@@ -51,3 +51,5 @@ npm run dev
 ```
 The backend will run on http://localhost:5000.
 
+🧪 API Endpoints Overview
+Routes mentioned in apilist.md file, (full list coming soon / documented via Postman)
